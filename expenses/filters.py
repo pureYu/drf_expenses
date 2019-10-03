@@ -11,5 +11,5 @@ class ExpenseFilter(filters.FilterSet):
         fields = ['author']
 
     title = filters.CharFilter(field_name='title', lookup_expr='icontains')
-    # min_date = filters.DateRangeFilter(field_name="date_spent", lookup_expr='gte')
+    min_date = filters.DateTimeFilter(field_name="date_spent", lookup_expr='gte')
 
