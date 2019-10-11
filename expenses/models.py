@@ -14,6 +14,3 @@ class Expense(models.Model):
 
     def __str__(self):
         return "\"{}\" - {:.2f} - {:%Y-%m-%d %H:%M} / {}".format(self.title, self.amount, self.date_spent, self.author.username )
-
-    # def get_absolute_url(self):
-    #     return reverse('cost-detail', kwargs={'pk': self.pk})

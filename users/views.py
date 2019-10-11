@@ -3,14 +3,27 @@ from rest_framework.permissions import IsAuthenticated
 
 from .models import CustomUser
 from .serializers import *
+from .permissions import *
 
+
+permission_groups = {
+    'post': ['user_manager', 'admin'],  # can POST
+    'put': ['user_manager', 'admin'],  # can PATCH
+    # 'get': ['user_manager', 'admin', '_Public'], # retrieve can be accessed without credentials (GET 'site.com/api/foo/1')
+    'get': ['user_manager', 'admin'], # retrieve can be accessed without credentials (GET 'site.com/api/foo/1')
+    'delete': ['user_manager', 'admin'], # retrieve can be accessed without credentials (GET 'site.com/api/foo/1')
+}
 
 class UserListView(ListAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
+    permission_classes = [HasGroupPermission]
+    permission_groups = permission_groups
 
 class SingleUserView(RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
+    permission_classes = [HasGroupPermission]
+    permission_groups = permission_groups

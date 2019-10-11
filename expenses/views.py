@@ -34,20 +34,6 @@ class ExpenseView(ListCreateAPIView):
         # return queryset.order_by('-date_spent', '-id')
         return queryset.order_by('-id')
 
-    # def get_queryset(self):
-    #     # queryset = Expense.objects.filter(author=self.request.user)
-    #     # return queryset.order_by('-date_spent', '-id')
-    #
-    #     queryset = Expense.objects.all()
-    #     filter = {}
-    #     filter_text = self.request.query_params.get('search', None)
-    #     if filter_text:
-    #         filter['title__icontains'] = filter_text
-    #     filter_date_form = self.request.query_params.get('date_from', None)
-    #     if filter_date_form:
-    #         filter['date_spent__gte'] = filter_date_form
-    #     return queryset.filter(**filter).order_by('-date_spent', '-id')
-
     def perform_create(self, serializer):
         author = get_object_or_404(CustomUser, id=self.request.user.id)
         return serializer.save(author=author)
