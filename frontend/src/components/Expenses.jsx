@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import Modal from "./Modal";
 
+import {expenses} from '../actions'
 
-export default class Expenses extends Component {
+
+// export default class Expenses extends Component {
+class Expenses extends Component {
 
   async componentDidMount() {
     try {
+//       this.props.fetchExpenses();
       const res = await fetch('http://127.0.0.1:8000/api/expenses/'); // fetching the data from api, before the page loaded
       const expenses = await res.json();
       this.setState({
@@ -40,6 +45,8 @@ export default class Expenses extends Component {
   };
   handleDelete = item => {
     alert("delete" + JSON.stringify(item));
+//     this.props.deleteExpense(item.id);
+    alert("deleted " + item.id);
   };
   createItem = () => {
     const item = { title: "", amount: "", completed: false };
@@ -142,3 +149,30 @@ export default class Expenses extends Component {
     );
    }
 }
+
+const mapStateToProps = state => {
+//   console.log('Update state!!! ', state.expenses);
+  return {
+    expenseList: state.expenses,
+    expenses: state.expenseList,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchExpenses: () => {
+      dispatch(expenses.fetchExpenses());
+    },
+    addExpense: (text) => {
+      dispatch(expenses.addExpense(text));
+    },
+    updateExpense: (id, text) => {
+      dispatch(expenses.addExpense(id, text));
+    },
+    deleteExpense: (id) => {
+      dispatch(expenses.deleteExpense(id));
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Expenses);

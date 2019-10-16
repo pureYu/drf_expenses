@@ -57,6 +57,12 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
+ACCOUNT_ADAPTER = 'users.adapter.CustomAccountAdapter'
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    # 'REGISTER_SERIALIZER': 'users.serializers.RegisterSerializer',
+    'REGISTER_SERIALIZER': 'users.serializers.CustomRegisterSerializer',
+}
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
