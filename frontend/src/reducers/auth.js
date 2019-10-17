@@ -31,6 +31,7 @@ export default function auth(state=initialState, action) {
     case 'LOGIN_FAILED':
     case 'REGISTRATION_FAILED':
     case 'LOGOUT_SUCCESSFUL':
+    case 'LOGOUT_FAILED':
       localStorage.removeItem("key");
       return {...state, errors: action.data, key: null, user: null,
         isAuthenticated: false, isLoading: false};

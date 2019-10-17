@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import Modal from "./Modal";
+import AuthUser from "./AuthUser";
 
 import {expenses} from '../actions'
 
@@ -128,10 +129,13 @@ class Expenses extends Component {
         <div className="row ">
           <div className="col-md-6 col-sm-10 mx-auto p-0">
             <div className="card p-3">
-              <div className="">
-                <button onClick={this.createItem} className="btn btn-primary">
-                  Add expense item
-                </button>
+              <div>
+                  <div className="float-left">
+                    <button onClick={this.createItem} className="btn btn-primary">
+                      Add expense item
+                    </button>
+                  </div>
+                  <AuthUser />
               </div>
               {this.renderTabList()}
 

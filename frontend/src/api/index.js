@@ -22,7 +22,6 @@ const getExpenses = async (key) => {
 //    const response = await fetch(`${BASE_API_URL}expenses/`, {headers });
 //    return response.json();
     const headers = buildHeaders(key);
-    console.log('headers: ', headers);
     const response = await axios.get(BASE_API_URL_EXPENSES, {headers });
 //    return response.data;
     return response;

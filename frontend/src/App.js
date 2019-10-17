@@ -75,7 +75,6 @@ class RootContainerComponent extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('state.auth: ', state.auth);
   return {
     auth: state.auth,
   }
@@ -83,9 +82,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadUser: () => {
-      return dispatch(auth.loadUser());
-    }
+//    loadUser: () => {
+//      return dispatch(auth.loadUser());
+//    }
   }
 }
 
