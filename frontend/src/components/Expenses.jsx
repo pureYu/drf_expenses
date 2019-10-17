@@ -10,16 +10,17 @@ import {expenses} from '../actions'
 class Expenses extends Component {
 
   async componentDidMount() {
-    try {
-//       this.props.fetchExpenses();
-      const res = await fetch('http://127.0.0.1:8000/api/expenses/'); // fetching the data from api, before the page loaded
-      const expenses = await res.json();
-      this.setState({
-        expenseList: expenses,
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    this.props.fetchExpenses();
+//     try {
+// //       this.props.fetchExpenses();
+//       const res = await fetch('http://127.0.0.1:8000/api/expenses/'); // fetching the data from api, before the page loaded
+//       const expenses = await res.json();
+//       this.setState({
+//         expenseList: expenses,
+//       });
+//     } catch (e) {
+//       console.log(e);
+//     }
   }
 
   constructor(props) {
@@ -86,7 +87,8 @@ class Expenses extends Component {
 //    const newItems = this.state.expenseList.filter(
 //      item => item.completed === viewCompleted
 //    );
-    const newItems = this.state.expenseList;
+    const newItems = this.props.expenseList;
+//     const newItems = this.state.expenseList;
     return newItems.map(item => (
       <li
         key={item.id}
@@ -132,6 +134,15 @@ class Expenses extends Component {
                 </button>
               </div>
               {this.renderTabList()}
+
+              {this.props.errors.length > 0 && (
+                <ul>
+                  {this.props.errors.map(error => (
+                    <li key={error.field}>{error.message}</li>
+                  ))}
+                </ul>
+              )}
+
               <ul className="list-group list-group-flush">
                 {this.renderItems()}
               </ul>
@@ -151,10 +162,15 @@ class Expenses extends Component {
 }
 
 const mapStateToProps = state => {
-//   console.log('Update state!!! ', state.expenses);
+  let errors = [];
+  if (state.expenses.errors) {
+    errors = Object.keys(state.expenses.errors).map(field => {
+      return {field, message: state.expenses.errors[field]};
+    });
+  }
   return {
-    expenseList: state.expenses,
-    expenses: state.expenseList,
+    errors,
+    expenseList: state.expenses.expenseList,
   }
 }
 

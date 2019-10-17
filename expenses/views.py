@@ -28,8 +28,9 @@ class ExpenseView(ListCreateAPIView):
     """
     View for listing users' expenses and CRUD their expenses
     """
-    # permission_classes = [IsAuthenticated, HasGroupPermission]
-    # permission_groups = permission_groups
+    permission_classes = [IsAuthenticated, HasGroupPermission]
+    # permission_classes = [IsAuthenticated]
+    permission_groups = permission_groups
     queryset = Expense.objects.all()
     serializer_class = ExpenseSerializer
     filter_backends = (filters.DjangoFilterBackend,)

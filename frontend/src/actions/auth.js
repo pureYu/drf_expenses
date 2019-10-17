@@ -2,14 +2,14 @@ export const loadUser = () => {
   return (dispatch, getState) => {
     dispatch({type: "USER_LOADING"});
 
-    const token = getState().auth.token;
+    const key = getState().auth.key;
 
     let headers = {
       "Content-Type": "application/json",
     };
 
-    if (token) {
-      headers["Authorization"] = `Token ${token}`;
+    if (key) {
+      headers["Authorization"] = `Token ${key}`;
     }
     return fetch("http://127.0.0.1:8000/api/rest-auth/user/", {headers, })
       .then(res => {

@@ -43,7 +43,7 @@ let store = createStore(expensesApp, applyMiddleware(thunk));
 class RootContainerComponent extends Component {
 
   componentDidMount() {
-    this.props.loadUser();
+//    this.props.loadUser();
   }
 
   PrivateRoute = ({component: ChildComponent, ...rest}) => {
@@ -75,6 +75,7 @@ class RootContainerComponent extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log('state.auth: ', state.auth);
   return {
     auth: state.auth,
   }

@@ -40,9 +40,10 @@ export default function expenses(state=initialState, action) {
       return {...state};
 
     case 'FETCH_EXPENSES':
-//        state.expenseList = action.expenses;
-//      return  { ...state };
-      return  {...state, ...action.expenses};
+      return  {...state, expenseList: action.expenseList};
+
+    case 'FETCH_EXPENSES_FAILED':
+      return  {...state, errors: action.data};
 
     default:
       return state;
