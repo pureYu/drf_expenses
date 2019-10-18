@@ -1,15 +1,12 @@
 const key = localStorage.getItem("key");
 
 const initialState = {
-//  key: localStorage.getItem("key"),
   key,
   isAuthenticated: !!key,
   isLoading: false,
   user: null,
   errors: {},
 };
-
-console.log('initialState: ',initialState);
 
 
 export default function auth(state=initialState, action) {

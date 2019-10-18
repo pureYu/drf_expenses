@@ -1,6 +1,3 @@
-//const initialState = [
-//  {text: "Write code!"}
-//];
 const initialState = {
       modal: false,
       viewCompleted: false,
@@ -11,13 +8,7 @@ const initialState = {
       },
       expenseList: []
     };
-//
-//export default function expenses(state=initialState, action) {
-//  switch (action.type) {
-//    default:
-//      return state;
-//  }
-//}
+
 
 export default function expenses(state=initialState, action) {
 

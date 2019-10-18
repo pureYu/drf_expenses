@@ -18,32 +18,10 @@ import NotFound from "./components/NotFound";
 let store = createStore(expensesApp, applyMiddleware(thunk));
 
 
-//class App extends Component {
-//
-//  render() {
-//    return (
-//      <main className="content">
-//      <Provider store={store}>
-//        <BrowserRouter>
-//        <Switch>
-//          <Route path="/" exact component={Expenses} />
-//          <Route path="/users/:id" exact component={Users} />
-//          <Route path="/login" exact component={Login} />
-//          <Route component={NotFound} />
-//        </Switch>
-//        </BrowserRouter>
-//      </Provider>
-//      </main>
-//    );
-//  }
-//
-//}
-//export default App;
-
 class RootContainerComponent extends Component {
 
   componentDidMount() {
-//    this.props.loadUser();
+//    this.props.loadAuthUser();
   }
 
   PrivateRoute = ({component: ChildComponent, ...rest}) => {
@@ -82,8 +60,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-//    loadUser: () => {
-//      return dispatch(auth.loadUser());
+//    loadAuthUser: () => {
+//      return dispatch(auth.loadAuthUser());
 //    }
   }
 }

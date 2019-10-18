@@ -1,22 +1,15 @@
-export const loadUser = () => {
+import * as api from '../api'
+
+
+export const loadAuthUser = () => {
   return (dispatch, getState) => {
     dispatch({type: "USER_LOADING"});
-
     const key = getState().auth.key;
 
-    let headers = {
-      "Content-Type": "application/json",
-    };
-
-    if (key) {
-      headers["Authorization"] = `Token ${key}`;
-    }
-    return fetch("http://127.0.0.1:8000/api/rest-auth/user/", {headers, })
+    return api.getAuthUserData(key)
       .then(res => {
         if (res.status < 500) {
-          return res.json().then(data => {
-            return {status: res.status, data};
-          })
+            return {status: res.status, data: res.data};
         } else {
           console.log("Server Error!");
           throw res;
@@ -36,15 +29,10 @@ export const loadUser = () => {
 
 export const login = (username, password) => {
   return (dispatch, getState) => {
-    let headers = {"Content-Type": "application/json"};
-    let body = JSON.stringify({username, password});
-
-    return fetch("http://127.0.0.1:8000/api/rest-auth/login/", {headers, body, method: "POST"})
+    return api.postLogin(username, password)
       .then(res => {
         if (res.status < 500) {
-          return res.json().then(data => {
-            return {status: res.status, data};
-          })
+            return {status: res.status, data: res.data};
         } else {
           console.log("Server Error!");
           throw res;
@@ -67,22 +55,17 @@ export const login = (username, password) => {
 
 export const register = (username, password1, password2, email, name, surname) => {
   return (dispatch, getState) => {
-    let headers = {"Content-Type": "application/json"};
-    let body = JSON.stringify({username, password1, password2, email, name, surname});
-
-    return fetch("http://127.0.0.1:8000/api/rest-auth/registration/", {headers, body, method: "POST"})
+    return api.postRegister(username, password1, password2, email, name, surname)
       .then(res => {
         if (res.status < 500) {
-          return res.json().then(data => {
-            return {status: res.status, data};
-          })
+          return {status: res.status, data: res.data};
         } else {
           console.log("Server Error!");
           throw res;
         }
       })
       .then(res => {
-        if (res.status === 200) {
+        if (res.status === 200 || res.status === 201) {
           dispatch({type: 'REGISTRATION_SUCCESSFUL', data: res.data });
           return res.data;
         } else if (res.status === 403 || res.status === 401) {
@@ -98,14 +81,10 @@ export const register = (username, password1, password2, email, name, surname) =
 
 export const logout = () => {
   return (dispatch, getState) => {
-    let headers = {"Content-Type": "application/json"};
-
-    return fetch("http://127.0.0.1:8000/api/rest-auth/logout/", {headers, method: "POST"})
+    return api.postLogout()
       .then(res => {
         if (res.status < 500) {
-          return res.json().then(data => {
-            return {status: res.status, data};
-          })
+          return {status: res.status, data: res.data};
         } else {
           console.log("Server Error!");
           throw res;
@@ -122,4 +101,3 @@ export const logout = () => {
       })
   }
 }
-

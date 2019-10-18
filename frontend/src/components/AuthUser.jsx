@@ -8,10 +8,8 @@ class AuthUser extends Component {
 
   componentDidMount() {
     if (!this.props.auth.user) {
-      this.props.loadUser();
+      this.props.loadAuthUser();
     }
-    console.log('this.props.auth: ', this.props.auth);
-    console.log('this.props.auth.user: ', this.props.auth.user);
   }
 
   doLogout = () => {
@@ -52,8 +50,8 @@ const mapDispatchToProps = dispatch => {
     logout: () => {
       return dispatch(auth.logout());
     },
-    loadUser: () => {
-      return dispatch(auth.loadUser());
+    loadAuthUser: () => {
+      return dispatch(auth.loadAuthUser());
     },
   };
 }

@@ -41,33 +41,3 @@ export const fetchExpenses = () => {
       })
   }
 }
-//export const fetchExpenses = () => {
-//  return async (dispatch, getState) => {
-//    const key = getState().auth.key;
-//    const expenseList = await api.getExpenses(key);
-//
-//    return dispatch({
-//          type: 'FETCH_EXPENSES',
-//          expenseList: expenseList,
-//        })
-//  }
-//}
-//export const fetchExpenses = () => {
-//  return (dispatch, getState) => {
-//    console.log('store',  getState());
-//    const key = getState().auth.key;
-//    console.log('key: ',  key);
-//    let headers = {"Content-Type": "application/json"};
-//    headers["Authorization"] = `Token ${key}`;
-//    return fetch('http://127.0.0.1:8000/api/expenses/', {headers, })
-//      .then(res => res.json())
-//      .then(expenses => {
-//
-//        return dispatch({
-//          type: 'FETCH_EXPENSES',
-//          expenseList: expenses,
-//        })
-//      })
-//  }
-//}
-
