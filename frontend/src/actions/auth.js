@@ -55,7 +55,8 @@ export const login = (username, password) => {
 
 export const register = (username, password1, password2, email, name, surname) => {
   return (dispatch, getState) => {
-    return api.postRegister(username, password1, password2, email, name, surname)
+    const data = JSON.stringify({username, password1, password2, email, name, surname});
+    return api.postRegister(data)
       .then(res => {
         if (res.status < 500) {
           return {status: res.status, data: res.data};

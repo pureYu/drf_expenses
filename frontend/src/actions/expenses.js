@@ -1,9 +1,28 @@
 import * as api from '../api'
 
-export const addExpense = text => {
-  return {
-    type: 'ADD_EXPENSE',
-    text
+export const addExpense = (title, amount, date_spent) => {
+  return (dispatch, getState) => {
+    dispatch({type: "ADD_EXPENSE_LOADING"});
+    const key = getState().auth.key;
+    const data = JSON.stringify({title, amount, date_spent});
+    console.log('Posting date_spent: ', date_spent);
+    console.log('Posting data: ', data);
+
+    return api.postExpense(key, data)
+      .then(response => {
+        console.log('Answer: ', data);
+//        const expenseList = response.data;
+        dispatch({
+          type: 'ADD_EXPENSE',   // reload expenses here
+//          expenseList: expenseList,
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: 'ADD_EXPENSE_FAILED',
+          data: err.data,
+        });
+      })
   }
 }
 
@@ -41,3 +60,4 @@ export const fetchExpenses = () => {
       })
   }
 }
+

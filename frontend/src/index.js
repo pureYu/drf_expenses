@@ -4,6 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import DatePicker, { registerLocale } from "react-datepicker";
+import uk from "date-fns/locale/uk"; // the locale you want
+registerLocale("uk", uk); // register it with the name you want
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

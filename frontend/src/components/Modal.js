@@ -10,12 +10,22 @@ import {
   Input,
   Label
 } from "reactstrap";
+//import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 export default class CustomModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeItem: this.props.activeItem
+      activeItem: this.props.activeItem,
+      formErrors: {title: '', amount: '', date_spent: ''},
+      formValid: { valid: false,
+        titleValid: false,
+        amountValid: false,
+        dateValid: false,
+      },
     };
   }
   handleChange = e => {
@@ -26,6 +36,43 @@ export default class CustomModal extends Component {
     const activeItem = { ...this.state.activeItem, [name]: value };
     this.setState({ activeItem });
   };
+  handleChangeDateTime = e => {
+    let name = 'date_spent', value = e.toString();
+    const activeItem = { ...this.state.activeItem, [name]: value };
+    this.setState({ activeItem });
+  };
+
+//https://learnetto.com/blog/react-form-validation
+//  validateField(fieldName, value) {
+//    let fieldValidationErrors = this.state.formErrors;
+//    let titleValid = this.state.formValid.titleValid;
+//    let passwordValid = this.state.formValid.passwordValid;
+//
+//    switch(fieldName) {
+//      case 'email':
+//        emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+//        fieldValidationErrors.email = emailValid ? '' : ' is invalid';
+//        break;
+//      case 'password':
+//        passwordValid = value.length >= 6;
+//        fieldValidationErrors.password = passwordValid ? '': ' is too short';
+//        break;
+//      default:
+//        break;
+//    }
+//    this.setState({formErrors: fieldValidationErrors,
+//                    emailValid: emailValid,
+//                    passwordValid: passwordValid
+//                  }, this.validateForm);
+//  }
+//
+//  validateForm() {
+//    let formValid = this.state.formValid;
+//    formValid.valid = formValid.titleValid && formValid.amountValid && formValid.dateValid;
+//    this.setState({formValid: formValid});
+//  }
+
+
   render() {
     const { toggle, onSave } = this.props;
     return (
@@ -41,6 +88,7 @@ export default class CustomModal extends Component {
                 value={this.state.activeItem.title}
                 onChange={this.handleChange}
                 placeholder="Enter Expense Title"
+                required
               />
             </FormGroup>
             <FormGroup>
@@ -51,18 +99,21 @@ export default class CustomModal extends Component {
                 value={this.state.activeItem.amount}
                 onChange={this.handleChange}
                 placeholder="Enter The Sum"
+                required
               />
             </FormGroup>
-            <FormGroup check>
-              <Label for="completed">
-                <Input
-                  type="checkbox"
-                  name="completed"
-                  checked={this.state.activeItem.completed}
-                  onChange={this.handleChange}
-                />
-                Completed
-              </Label>
+            <FormGroup>
+              <Label for="date_spent">Date spent</Label>
+              <DatePicker
+                selected={this.state.activeItem.date_spent ? new Date(this.state.activeItem.date_spent) : ""}
+                onChange={this.handleChangeDateTime}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={10}
+                locale="uk"
+                dateFormat="yyyy-MM-dd HH:mm"
+                required
+              />
             </FormGroup>
           </Form>
         </ModalBody>

@@ -32,7 +32,7 @@ class Expenses extends Component {
       activeItem: {
         title: "",
         amount: "",
-        completed: false
+        date_spent: "",
       },
       expenseList: []
     };
@@ -42,8 +42,9 @@ class Expenses extends Component {
     this.setState({ modal: !this.state.modal });
   };
   handleSubmit = item => {
+    this.props.addExpense(item.title, item.amount, item.date_spent);
     this.toggle();
-    alert("save" + JSON.stringify(item));
+//     alert("save" + JSON.stringify(item));
   };
   handleDelete = item => {
     alert("delete" + JSON.stringify(item));
@@ -51,7 +52,7 @@ class Expenses extends Component {
     alert("deleted " + item.id);
   };
   createItem = () => {
-    const item = { title: "", amount: "", completed: false };
+    const item = { title: "", amount: "", date_spent: ""};
     this.setState({ activeItem: item, modal: !this.state.modal });
   };
   editItem = item => {
@@ -102,6 +103,7 @@ class Expenses extends Component {
           title={item.title}
         >
           <span>{item.title}</span>
+          <span className={`expense-date_spent`} date_spent={item.date_spent}>{item.date_spent}</span>
           <span className={`expense-amount`} amount={item.amount}>{item.amount}</span>
         </span>
         <span>
@@ -183,8 +185,8 @@ const mapDispatchToProps = dispatch => {
     fetchExpenses: () => {
       dispatch(expenses.fetchExpenses());
     },
-    addExpense: (text) => {
-      dispatch(expenses.addExpense(text));
+    addExpense: (text, amount, date_spent) => {
+      dispatch(expenses.addExpense(text, amount, date_spent));
     },
     updateExpense: (id, text) => {
       dispatch(expenses.addExpense(id, text));

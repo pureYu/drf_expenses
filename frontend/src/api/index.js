@@ -17,18 +17,6 @@ const buildHeaders = (key) => {
     return headers;
 }
 
-const getExpenses = async (key) => {
-    const headers = buildHeaders(key);
-    const response = await axios.get(BASE_API_URL_EXPENSES, {headers });
-    return response;
-}
-
-const getAuthUserData = (key) => {
-    const headers = buildHeaders(key);
-    const response = axios.get(BASE_API_URL_AUTH_USER, {headers });
-    return response;
-}
-
 const postLogin = (username, password) => {
     const headers = buildHeaders();
     const data = JSON.stringify({username, password});
@@ -42,11 +30,42 @@ const postLogout = () => {
     return response;
 }
 
-const postRegister = (username, password1, password2, email, name, surname) => {
+const postRegister = (data) => {
     const headers = buildHeaders();
-    const data = JSON.stringify({username, password1, password2, email, name, surname});
+//    const data = JSON.stringify({username, password1, password2, email, name, surname});
     const response = axios.post(BASE_API_URL_AUTH_REG, data, {headers });
     return response;
 }
 
-export {getExpenses, getAuthUserData, postLogin, postLogout, postRegister};
+const getAuthUserData = (key) => {
+    const headers = buildHeaders(key);
+    const response = axios.get(BASE_API_URL_AUTH_USER, {headers });
+    return response;
+}
+
+const getExpenses = async (key) => {
+    const headers = buildHeaders(key);
+    const response = await axios.get(BASE_API_URL_EXPENSES, {headers });
+    return response;
+}
+
+const postExpense = (key, data) => {
+    const headers = buildHeaders(key);
+//    const data = JSON.stringify({title, amount, date_spent});
+    const response = axios.post(BASE_API_URL_EXPENSES, data, {headers });
+    return response;
+}
+
+const putExpense = (key, title, amount, date_spent) => {
+    const headers = buildHeaders(key);
+    const response = axios.get(BASE_API_URL_EXPENSES, {headers });
+    return response;
+}
+
+const deleteExpense = (key, title, amount, date_spent) => {
+    const headers = buildHeaders(key);
+    const response = axios.get(BASE_API_URL_EXPENSES, {headers });
+    return response;
+}
+
+export {postLogin, postLogout, postRegister, getAuthUserData, getExpenses, postExpense, putExpense, deleteExpense};

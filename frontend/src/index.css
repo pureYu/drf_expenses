@@ -14,6 +14,11 @@ body {
 }
 .expense-amount {
   float: right;
+  margin: 0 20px;
+}
+.expense-date_spent {
+  float: right;
+
 }
 .completed-expense {
   text-decoration: line-through;
