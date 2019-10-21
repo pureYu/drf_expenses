@@ -5,22 +5,18 @@ export const addExpense = (title, amount, date_spent) => {
     dispatch({type: "ADD_EXPENSE_LOADING"});
     const key = getState().auth.key;
     const data = JSON.stringify({title, amount, date_spent});
-    console.log('Posting date_spent: ', date_spent);
-    console.log('Posting data: ', data);
-
     return api.postExpense(key, data)
       .then(response => {
-        console.log('Answer: ', data);
-//        const expenseList = response.data;
+//        console.log('Answer: ', response);
         dispatch({
-          type: 'ADD_EXPENSE',   // reload expenses here
-//          expenseList: expenseList,
+          type: 'ADD_EXPENSE_SUCCESS',
+          expenseAdded: response.data,
         });
       })
-      .catch(err => {
+      .catch(error => {
         dispatch({
           type: 'ADD_EXPENSE_FAILED',
-          data: err.data,
+          data: {data: error.message},
         });
       })
   }
@@ -35,9 +31,23 @@ export const updateExpense = (id, text) => {
 }
 
 export const deleteExpense = id => {
-  return {
-    type: 'DELETE_EXPENSE',
-    id
+  return (dispatch, getState) => {
+    const key = getState().auth.key;
+    return api.deleteExpense(key, id)
+      .then(response => {
+//        console.log('Answer: ', response);
+        dispatch({
+          type: 'DELETE_EXPENSE_SUCCESS',
+          removedItem: id,
+        });
+      })
+      .catch(error => {
+        console.log('EEEEError: ', error);
+        dispatch({
+          type: 'DELETE_EXPENSE_FAILED',
+          data: {data: error.message},
+        });
+      })
   }
 }
 
@@ -52,10 +62,10 @@ export const fetchExpenses = () => {
           expenseList: expenseList,
         });
       })
-      .catch(err => {
+      .catch(error => {
         dispatch({
           type: 'FETCH_EXPENSES_FAILED',
-          data: err.data,
+          data: {data: error.message},
         });
       })
   }

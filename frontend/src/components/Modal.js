@@ -11,7 +11,8 @@ import {
   Label
 } from "reactstrap";
 //import DatePicker from "react-datepicker";
-import DatePicker, { registerLocale } from "react-datepicker";
+import DatePicker from "react-datepicker";
+import moment from 'moment'
 import "react-datepicker/dist/react-datepicker.css";
 
 
@@ -37,7 +38,7 @@ export default class CustomModal extends Component {
     this.setState({ activeItem });
   };
   handleChangeDateTime = e => {
-    let name = 'date_spent', value = e.toString();
+    let name = 'date_spent', value = moment(e).format("YYYY-MM-DD HH:mm");
     const activeItem = { ...this.state.activeItem, [name]: value };
     this.setState({ activeItem });
   };

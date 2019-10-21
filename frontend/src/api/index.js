@@ -1,4 +1,4 @@
-import React from 'react';
+//import React from 'react';
 import axios from 'axios';
 
 
@@ -32,7 +32,6 @@ const postLogout = () => {
 
 const postRegister = (data) => {
     const headers = buildHeaders();
-//    const data = JSON.stringify({username, password1, password2, email, name, surname});
     const response = axios.post(BASE_API_URL_AUTH_REG, data, {headers });
     return response;
 }
@@ -62,9 +61,9 @@ const putExpense = (key, title, amount, date_spent) => {
     return response;
 }
 
-const deleteExpense = (key, title, amount, date_spent) => {
+const deleteExpense = (key, item_id) => {
     const headers = buildHeaders(key);
-    const response = axios.get(BASE_API_URL_EXPENSES, {headers });
+    const response = axios.delete(`${BASE_API_URL_EXPENSES}${item_id}/`, {headers });
     return response;
 }
 

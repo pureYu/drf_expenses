@@ -5,7 +5,7 @@ import { Provider, connect } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
-import {auth} from "./actions";
+//import {auth} from "./actions";
 import expensesApp from "./reducers";
 
 import Expenses from "./components/Expenses";

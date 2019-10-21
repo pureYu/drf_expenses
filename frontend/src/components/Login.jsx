@@ -16,6 +16,16 @@ class Login extends Component {
     if (this.props.isAuthenticated) {
       return <Redirect to="/" />
     }
+    let errorPanel = '';
+    if (this.props.errors.length > 0) {
+      errorPanel =
+            <ul>
+              {this.props.errors.map(error => (
+                <li key={error.field}>{this.state && this.state.hasOwnProperty(error.field) ? <span>{error.field}: </span> : ""} {error.message}</li>
+              ))}
+            </ul>
+    }
+
     return (
   <div>
     <h1 className="text-white text-uppercase text-center my-4">Login</h1>
@@ -25,17 +35,13 @@ class Login extends Component {
 
       <form onSubmit={this.onSubmit}>
         <fieldset>
-          {this.props.errors.length > 0 && (
-            <ul>
-              {this.props.errors.map(error => (
-                <li key={error.field}>{error.message}</li>
-              ))}
-            </ul>
-          )}
+
+          {errorPanel}
+
           <p>
             <label htmlFor="username">Username</label>
             <input
-              type="text" id="username"
+              type="text" id="username" required={true}
               onChange={e => this.setState({username: e.target.value})} />
           </p>
           <p>

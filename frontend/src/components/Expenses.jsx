@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
 import Modal from "./Modal";
 import AuthUser from "./AuthUser";
 
@@ -12,16 +11,6 @@ class Expenses extends Component {
 
   async componentDidMount() {
     this.props.fetchExpenses();
-//     try {
-// //       this.props.fetchExpenses();
-//       const res = await fetch('http://127.0.0.1:8000/api/expenses/'); // fetching the data from api, before the page loaded
-//       const expenses = await res.json();
-//       this.setState({
-//         expenseList: expenses,
-//       });
-//     } catch (e) {
-//       console.log(e);
-//     }
   }
 
   constructor(props) {
@@ -34,7 +23,9 @@ class Expenses extends Component {
         amount: "",
         date_spent: "",
       },
-      expenseList: []
+      expenseList: [],
+      removedItem: "",
+      expenseAdded: "",
     };
   }
 
@@ -44,12 +35,11 @@ class Expenses extends Component {
   handleSubmit = item => {
     this.props.addExpense(item.title, item.amount, item.date_spent);
     this.toggle();
-//     alert("save" + JSON.stringify(item));
+    console.log(this.props.errors);
   };
   handleDelete = item => {
-    alert("delete" + JSON.stringify(item));
-//     this.props.deleteExpense(item.id);
-    alert("deleted " + item.id);
+    this.props.deleteExpense(item.id);
+//     console.log(this.props.errors);
   };
   createItem = () => {
     const item = { title: "", amount: "", date_spent: ""};
@@ -168,6 +158,9 @@ class Expenses extends Component {
 }
 
 const mapStateToProps = state => {
+//   console.log('in mapDispatchToProps')
+//   console.log(state.expenses);
+
   let errors = [];
   if (state.expenses.errors) {
     errors = Object.keys(state.expenses.errors).map(field => {
@@ -177,6 +170,8 @@ const mapStateToProps = state => {
   return {
     errors,
     expenseList: state.expenses.expenseList,
+    removedItem: state.expenses.removedItem,
+    expenseAdded: state.expenses.expenseAdded,
   }
 }
 

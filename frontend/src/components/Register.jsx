@@ -25,6 +25,15 @@ class Login extends Component {
     if (this.props.isAuthenticated) {
       return <Redirect to="/" />
     }
+    let errorPanel = '';
+    if (this.props.errors.length > 0) {
+      errorPanel =
+            <ul>
+              {this.props.errors.map(error => (
+                <li key={error.field}>{this.state && this.state.hasOwnProperty(error.field) ? <span>{error.field}: </span> : ""} {error.message}</li>
+              ))}
+            </ul>
+    }
     return (
   <div>
     <h1 className="text-white text-uppercase text-center my-4">Register</h1>
@@ -34,47 +43,43 @@ class Login extends Component {
 
       <form onSubmit={this.onSubmit}>
         <fieldset>
-          {this.props.errors.length > 0 && (
-            <ul>
-              {this.props.errors.map(error => (
-                <li key={error.field}>{error.message}</li>
-              ))}
-            </ul>
-          )}
+
+          {errorPanel}
+
           <p>
             <label htmlFor="name">Your name</label>
             <input
-              type="text" id="name"
+              type="text" id="name" required={true}
               onChange={e => this.setState({name: e.target.value})} />
           </p>
           <p>
             <label htmlFor="surname">Your surname</label>
             <input
-              type="text" id="surname"
+              type="text" id="surname" required={true}
               onChange={e => this.setState({surname: e.target.value})} />
           </p>
           <p>
             <label htmlFor="username">Username</label>
             <input
-              type="text" id="username"
+              type="text" id="username" required={true}
               onChange={e => this.setState({username: e.target.value})} />
           </p>
           <p>
             <label htmlFor="password1">Password</label>
             <input
-              type="password" id="password1"
+              type="password" id="password1" required={true}
               onChange={e => this.setState({password1: e.target.value})} />
           </p>
           <p>
             <label htmlFor="password2">Repeat password</label>
             <input
-              type="password" id="password2"
+              type="password" id="password2" required={true}
               onChange={e => this.setState({password2: e.target.value})} />
           </p>
           <p>
             <label htmlFor="email">Email</label>
             <input
-              type="email" id="email"
+              type="email" id="email" required={true}
               onChange={e => this.setState({email: e.target.value})} />
           </p>
           <p>
