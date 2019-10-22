@@ -8,6 +8,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #282c34;
 }
+.expense-id {
+  display: inline;
+  margin-right: 10px;
+}
 .expense-title {
   cursor: pointer;
   width: 80%;

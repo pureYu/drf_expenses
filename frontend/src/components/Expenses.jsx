@@ -19,6 +19,7 @@ class Expenses extends Component {
       modal: false,
       viewCompleted: false,
       activeItem: {
+        id: "",
         title: "",
         amount: "",
         date_spent: "",
@@ -26,6 +27,7 @@ class Expenses extends Component {
       expenseList: [],
       removedItem: "",
       expenseAdded: "",
+      expenseUpdated: "",
     };
   }
 
@@ -33,7 +35,13 @@ class Expenses extends Component {
     this.setState({ modal: !this.state.modal });
   };
   handleSubmit = item => {
-    this.props.addExpense(item.title, item.amount, item.date_spent);
+    if (!item.id) {
+      console.log('add');
+      this.props.addExpense(item);
+    } else {
+      console.log('edit');
+      this.props.updateExpense(item.id, item);
+    }
     this.toggle();
     console.log(this.props.errors);
   };
@@ -92,6 +100,7 @@ class Expenses extends Component {
           }`}
           title={item.title}
         >
+          <span className={`expense-id`}>{item.id}</span>
           <span>{item.title}</span>
           <span className={`expense-date_spent`} date_spent={item.date_spent}>{item.date_spent}</span>
           <span className={`expense-amount`} amount={item.amount}>{item.amount}</span>
@@ -172,6 +181,7 @@ const mapStateToProps = state => {
     expenseList: state.expenses.expenseList,
     removedItem: state.expenses.removedItem,
     expenseAdded: state.expenses.expenseAdded,
+    expenseUpdated: state.expenses.expenseUpdated,
   }
 }
 
@@ -180,11 +190,11 @@ const mapDispatchToProps = dispatch => {
     fetchExpenses: () => {
       dispatch(expenses.fetchExpenses());
     },
-    addExpense: (text, amount, date_spent) => {
-      dispatch(expenses.addExpense(text, amount, date_spent));
+    addExpense: (item) => {
+      dispatch(expenses.addExpense(item.title, item.amount, item.date_spent));
     },
-    updateExpense: (id, text) => {
-      dispatch(expenses.addExpense(id, text));
+    updateExpense: (id, item) => {
+      dispatch(expenses.updateExpense(id, item.title, item.amount, item.date_spent));
     },
     deleteExpense: (id) => {
       dispatch(expenses.deleteExpense(id));

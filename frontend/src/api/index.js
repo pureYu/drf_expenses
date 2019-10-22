@@ -50,14 +50,13 @@ const getExpenses = async (key) => {
 
 const postExpense = (key, data) => {
     const headers = buildHeaders(key);
-//    const data = JSON.stringify({title, amount, date_spent});
     const response = axios.post(BASE_API_URL_EXPENSES, data, {headers });
     return response;
 }
 
-const putExpense = (key, title, amount, date_spent) => {
+const putExpense = (key, item_id, data) => {
     const headers = buildHeaders(key);
-    const response = axios.get(BASE_API_URL_EXPENSES, {headers });
+    const response = axios.put(`${BASE_API_URL_EXPENSES}${item_id}/`, data, {headers });
     return response;
 }
 

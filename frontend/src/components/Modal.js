@@ -83,6 +83,7 @@ export default class CustomModal extends Component {
           <Form>
             <FormGroup>
               <Label for="title">Title</Label>
+              <Input type="hidden" name="id" value={this.state.activeItem.id} />
               <Input
                 type="text"
                 name="title"

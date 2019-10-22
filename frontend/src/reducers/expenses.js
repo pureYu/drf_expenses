@@ -22,12 +22,10 @@ export default function expenses(state=initialState, action) {
 //      console.log('state.expenseList: ', state.expenseList);
       return {...state, expenseAdded: action.expenseAdded, expenseList: state.expenseList};
 
-    case 'UPDATE_EXPENSE':
-//      let expenseToUpdate = expenseList[action.id]
-//      expenseToUpdate.text = action.text;
-//      expenseList.splice(action.id, 1, expenseToUpdate);
-//      return expenseList;
-      return {...state};
+    case 'UPDATE_EXPENSE_SUCCESS':
+      let expenseToUpdateId = state.expenseList.findIndex(x => x.id === action.expenseUpdated.id)
+      state.expenseList[expenseToUpdateId] = action.expenseUpdated;
+      return {...state, expenseUpdated: action.expenseUpdated, expenseList: state.expenseList};
 
     case 'DELETE_EXPENSE_SUCCESS':
       let expenseListFiltered = state.expenseList.filter(exp => exp.id !== action.removedItem);
