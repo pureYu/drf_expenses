@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Modal from "./Modal";
+import FormExpense from "./FormExpense";
 import AuthUser from "./AuthUser";
 
 import {expenses} from '../actions'
@@ -156,10 +157,15 @@ class Expenses extends Component {
         </div>
         {this.state.modal ? (
           <Modal
-            activeItem={this.state.activeItem}
             toggle={this.toggle}
             onSave={this.handleSubmit}
-          />
+            mTitle="Expense Item"
+          >
+            <FormExpense
+              activeItem={this.state.activeItem}
+              onSave={this.handleSubmit}
+            />
+          </Modal>
         ) : null}
       </div>
     );
