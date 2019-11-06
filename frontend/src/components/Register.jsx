@@ -1,11 +1,18 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link, Redirect} from "react-router-dom";
+import {
+  Button,
+  Form,
+  FormGroup,
+  Input,
+  Label
+} from "reactstrap";
 
 import {auth} from "../actions";
 
 
-class Login extends Component {
+class Register extends Component {
 
   state = {
     name: "",
@@ -82,6 +89,7 @@ class Login extends Component {
               type="email" id="email" required={true}
               onChange={e => this.setState({email: e.target.value})} />
           </p>
+
           <p>
             <button type="submit">Register</button>
           </p>
@@ -120,4 +128,4 @@ const mapDispatchToProps = dispatch => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

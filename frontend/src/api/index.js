@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const BASE_API_URL = 'http://127.0.0.1:8000/api/';
 const BASE_API_URL_EXPENSES = `${BASE_API_URL}expenses/`;
+const BASE_API_URL_USERS = `${BASE_API_URL}users/`;
 const BASE_API_URL_AUTH_REG = `${BASE_API_URL}rest-auth/registration/`;
 const BASE_API_URL_AUTH_LOGIN = `${BASE_API_URL}rest-auth/login/`;
 const BASE_API_URL_AUTH_LOGOUT = `${BASE_API_URL}rest-auth/logout/`;
@@ -17,6 +18,7 @@ const buildHeaders = (key) => {
     return headers;
 }
 
+//  Authentication
 const postLogin = (username, password) => {
     const headers = buildHeaders();
     const data = JSON.stringify({username, password});
@@ -42,6 +44,7 @@ const getAuthUserData = (key) => {
     return response;
 }
 
+//  Expenses - CRUD
 const getExpenses = async (key) => {
     const headers = buildHeaders(key);
     const response = await axios.get(BASE_API_URL_EXPENSES, {headers });
@@ -66,4 +69,31 @@ const deleteExpense = (key, item_id) => {
     return response;
 }
 
-export {postLogin, postLogout, postRegister, getAuthUserData, getExpenses, postExpense, putExpense, deleteExpense};
+//  Users - CRUD
+const getUsers = async (key) => {
+    const headers = buildHeaders(key);
+    const response = await axios.get(BASE_API_URL_USERS, {headers });
+    return response;
+}
+
+const postUser = (key, data) => {
+    const headers = buildHeaders(key);
+    const response = axios.post(BASE_API_URL_USERS, data, {headers });
+    return response;
+}
+
+const putUser = (key, item_id, data) => {
+    const headers = buildHeaders(key);
+    const response = axios.put(`${BASE_API_URL_USERS}${item_id}/`, data, {headers });
+    return response;
+}
+
+const deleteUser = (key, item_id) => {
+    const headers = buildHeaders(key);
+    const response = axios.delete(`${BASE_API_URL_USERS}${item_id}/`, {headers });
+    return response;
+}
+
+export {postLogin, postLogout, postRegister, getAuthUserData
+      , getExpenses, postExpense, putExpense, deleteExpense
+      , getUsers, postUser, putUser, deleteUser};

@@ -28,21 +28,54 @@ class RootContainerComponent extends Component {
     return <Route {...rest} render={props => {
       if (this.props.auth.isLoading) {
         return <em>Loading...</em>;
-      } else if (!this.props.auth.isAuthenticated) {
-        return <Redirect to="/login" />;
-      } else {
-        return <ChildComponent {...props} />
       }
+      if (!this.props.auth.isAuthenticated) {
+        return <Redirect to="/login" />;
+      }
+
+      return <ChildComponent {...props} />
+
     }} />
   }
 
+//  DecisionRoute = ({ trueComponent, falseComponent, decisionFunc, ...rest }) => {
+//    return (
+//      <Route {...rest} render={
+//          decisionFunc()
+//            ? trueComponent
+//            : falseComponent
+//        }
+//      />
+//    )
+//  }
+//
   render() {
     let {PrivateRoute} = this;
+
+//    let user_groups = [];
+//    if (this.props.auth.user && this.props.auth.user.groups) {
+//      user_groups = this.props.auth.user.groups;
+//    }
+//    console.log('USER GROUPS: ', user_groups);
+//    if (user_groups.some(e => e.name === 'user_manager')) {
+//        return <Redirect exact from="/" to="/users" />;
+//    }
+//
+//          <PrivateRoute exact path="/" render={() => (
+//            user_groups.some(e => e.name === 'user_manager') ? (
+//              <Redirect exact from="/" to="/users" component={Users} />
+//            ) : (
+//              <Expenses />
+//            )
+//          )}/>
+
+
+
     return (
       <BrowserRouter>
         <Switch>
           <PrivateRoute exact path="/" component={Expenses} />
-          <PrivateRoute exact path="/users/:id" component={Users} />
+          <PrivateRoute exact path="/users" component={Users} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route component={NotFound} />

@@ -8,7 +8,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #282c34;
 }
-.expense-id {
+.expense-id, .user-id {
   display: inline;
   margin-right: 10px;
 }
@@ -16,13 +16,17 @@ body {
   cursor: pointer;
   width: 80%;
 }
-.expense-amount {
+.expense-amount, .user-groups {
   float: right;
   margin: 0 20px;
 }
 .expense-date_spent {
   float: right;
 
+}
+.users-longname {
+  display: block;
+  margin: 0 20px;
 }
 .completed-expense {
   text-decoration: line-through;

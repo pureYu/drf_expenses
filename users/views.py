@@ -17,13 +17,19 @@ permission_groups = {
 class UserListView(ListAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-    # permission_classes = (IsAuthenticated,)
-    permission_classes = [HasGroupPermission]
+    permission_classes = [IsAuthenticated, HasGroupPermission]
     permission_groups = permission_groups
+
+    def get_queryset(self):
+        filter = {}
+        if IsAuthenticated and is_in_group(self.request.user, 'user_manager'):
+            filter['groups__name__in'] = ['regular_user']
+        queryset = CustomUser.objects.filter(**filter)
+        return queryset.order_by('-id')
+
 
 class SingleUserView(RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-    # permission_classes = (IsAuthenticated,)
-    permission_classes = [HasGroupPermission]
+    permission_classes = [IsAuthenticated, HasGroupPermission]
     permission_groups = permission_groups
