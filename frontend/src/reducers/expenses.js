@@ -6,7 +6,7 @@ const initialState = {
         amount: "",
         completed: false
       },
-      page: 0,
+      activePage: 0,
       total: 0,
       loading: false,
       expenseList: [],

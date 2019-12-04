@@ -1,6 +1,6 @@
 import * as api from '../api'
 
-export const EXPENSES_PER_PAGE = 10;
+//export const EXPENSES_PER_PAGE = 10;
 
 
 export const addExpense = (title, amount, date_spent) => {
@@ -75,19 +75,15 @@ export const deleteExpense = id => {
   }
 }
 
-export const fetchExpenses = ( page = 0, params ) => {
+export const fetchExpenses = ( params = { offset: 0, limit: 10 } ) => {
   return async (dispatch, getState) => {
     dispatch({
       type: 'FETCH_EXPENSES_LOADING',
     });
     const key = getState().auth.key;
-    params = { offset: page * EXPENSES_PER_PAGE, limit: EXPENSES_PER_PAGE }
     await api.getExpenses(key, params)
       .then(response => {
-//        console.log('response', response);
         const { count, results } = response.data;
-        console.log('count: ', count)
-        console.log('results: ', results)
         dispatch({
           type: 'FETCH_EXPENSES',
           expenseList: results,

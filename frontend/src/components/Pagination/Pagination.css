@@ -1,0 +1,76 @@
+.container {
+}
+
+.break a {
+  display: flex;
+  align-items: center;
+}
+
+.pageButton {
+  transition: all 0.3s ease;
+}
+
+.pageButton a {
+  /* user-select: none; */
+  padding: 0 14px;
+  margin: 0 5px;
+  font-weight: normal;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.pageButton a svg {
+  margin-top: -1px;
+}
+
+.pageButton:not(.active) a {
+  color: var(--gray6);
+}
+
+.pageButton.active a {
+  background: var(--base);
+  position: relative;
+}
+.pageButton.active a::before {
+  position: absolute;
+  content: "";
+  display: flex;
+  bottom: 100%;
+  left: 0;
+  border-right: 18px solid transparent;
+  border-left: 18px solid transparent;
+  border-top: 0 solid transparent;
+  border-bottom: 8px solid var(--base);
+}
+.pageButton.active a::after {
+  position: absolute;
+  content: "";
+  display: flex;
+  top: 100%;
+  left: 0;
+  border-right: 18px solid transparent;
+  border-left: 18px solid transparent;
+  border-bottom: 0 solid transparent;
+  border-top: 8px solid var(--base);
+}
+
+.pageButton.active a:hover {
+  color: var(--white);
+}
+.pageButton:not(.active):hover {
+}
+
+.pageButton a:hover {
+  text-decoration: none;
+  color: var(--base);
+}
+@media screen and (max-width: 767px) {
+  .pageButton a {
+    padding: 0 6px;
+    font-size: 12px;
+    margin: 0 2px;
+  }
+  .pageButton.active a {
+    padding: 0 14px;
+  }
+}

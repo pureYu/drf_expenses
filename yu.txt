@@ -1,0 +1,71 @@
+_ drf_expenses
+
+/dev/drf_expenses$ source venv/bin/activate
+/dev/drf_expenses$ python manage.py runserver
+cd frontend
+yarn run
+
+
+
+Expenses project
+
+admin / admin
+test123 / aYMX5Wk7Cu
+Yuliya / rM7759hw96
+user4 / EkbZxEXyAm
+qwerty / rM7759hw96
+
+An application for tracking of user’s expenses
+
++ User is able to create an account and log in.
+
++ When logged in, user can see a list of his expenses: what money is spent for and how much, also he is able to edit and delete them.
+
++ Each entry has a date, time, text, and cost.
+
++ Filter by text, dates from-to, time from-to.
+
+User setting – Expected number of money spent per day. When displayed, it goes green if the total for current day is less than expected number per day, otherwise goes red.
+
+Groups:
++ regular_user (can CRUD their own records)
+user_manager (can CRUD users, except their groups)
+admin (can CRUD all records and users)
+
+Test should be added
+
+INSERT INTO `users_customuser_groups` (`customuser_id`, `group_id`) SELECT id,  2 FROM `users_customuser` WHERE id = 4;
+
+INSERT INTO `users_customuser_groups` (`customuser_id`, `group_id`) SELECT id,  3 FROM `users_customuser` WHERE id > 4;
+
+
++ users/ - list
++ registration
++ cost list - fix date format
+- pagination
++ cost list - add filters by text, dates from-to, time from-to
+- User setting ??? - number of money spent per day
+- User groups and permissions
+
+- edit expenses
++ delete expenses
+- add expenses
+- add filter
+- add custom user setting
+- add permissions/filter by exp.author
+- add users browser
+- add users from fronend
+- edit usrs from fronend
+- delete users from fronend
+-
+
+todo first:
+- expense validation
+- expense edit
+
+- pagination - backend
+- pagination - frontend
+- user filters - frontend
+- user settings (amout for a day)
+- tests
+

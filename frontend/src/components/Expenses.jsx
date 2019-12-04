@@ -6,15 +6,17 @@ import AuthUser from "./AuthUser";
 import Pagination from "./Pagination/Pagination";
 
 import {expenses} from '../actions'
-import {EXPENSES_PER_PAGE} from '../actions/expenses'
+// import {EXPENSES_PER_PAGE} from '../actions/expenses'
 
+const EXPENSES_PER_PAGE = 10;
 
 class Expenses extends Component {
 
   async componentDidMount() {
 //     this.props.fetchExpenses();       // AtlusBlue: PermissionsTab.js
-    const { fetchExpenses, id } = this.props;
-    fetchExpenses(id, { limit: EXPENSES_PER_PAGE , offset: 0 });
+    const { fetchExpenses } = this.props;
+//     const { id } = this.props;
+    fetchExpenses( { limit: EXPENSES_PER_PAGE , offset: 0 });
   }
 
   constructor(props) {
@@ -28,9 +30,7 @@ class Expenses extends Component {
         amount: "",
         date_spent: "",
       },
-      pageCount: 0,
       activePage: 0,
-      page: 0,
       total: 0,
       loading: false,
       expenseList: [],
@@ -71,13 +71,11 @@ class Expenses extends Component {
     }
     return this.setState({ viewCompleted: false });
   };
-//   onChangePage = ({ selected: page }) => {
-//     this.setState({ page }, this.props.fetchExpenses(page));
-//   };
   onChangePage = page => {
-    const { fetchExpenses, id } = this.props;
+    const { fetchExpenses } = this.props;
     this.setState({ activePage: page.selected });
-    fetchExpenses(id, { limit: EXPENSES_PER_PAGE, offset: page.selected * EXPENSES_PER_PAGE });
+    console.log('page selected>>>>>> ', page);
+    fetchExpenses({ limit: EXPENSES_PER_PAGE, offset: page.selected * EXPENSES_PER_PAGE });
   };
 
   renderTabList = () => {
@@ -105,7 +103,6 @@ class Expenses extends Component {
 //      item => item.completed === viewCompleted
 //    );
     const newItems = this.props.expenseList;
-//     const newItems = this.state.expenseList;
     return newItems.map(item => (
       <li
         key={item.id}
@@ -141,9 +138,8 @@ class Expenses extends Component {
   };
 
   render() {
-    const { expenseList, total, loading, page } = this.state;
-    const pageCount = total / EXPENSES_PER_PAGE;
-    const expenseFunction = this.props.fetchExpenses(page);
+    const { expenseList, total, loading, activePage } = this.props;
+    const pageCount = Math.ceil(total / EXPENSES_PER_PAGE);
     return (
       <div>
         <h1 className="text-white text-uppercase text-center my-4">Expense Tracking App</h1>
@@ -219,13 +215,16 @@ const mapStateToProps = state => {
     removedItem: state.expenses.removedItem,
     expenseAdded: state.expenses.expenseAdded,
     expenseUpdated: state.expenses.expenseUpdated,
+    total: state.expenses.total,
+    loading: state.expenses.loading,
+    activePage: state.expenses.activePage,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchExpenses: (page) => {
-      dispatch(expenses.fetchExpenses(page));
+    fetchExpenses: (params) => {
+      dispatch(expenses.fetchExpenses(params));
     },
     addExpense: (item) => {
       dispatch(expenses.addExpense(item.title, item.amount, item.date_spent));
