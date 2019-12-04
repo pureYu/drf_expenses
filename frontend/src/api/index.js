@@ -45,9 +45,9 @@ const getAuthUserData = (key) => {
 }
 
 //  Expenses - CRUD
-const getExpenses = async (key) => {
+const getExpenses = async (key, params) => {
     const headers = buildHeaders(key);
-    const response = await axios.get(BASE_API_URL_EXPENSES, {headers });
+    const response = await axios.get(BASE_API_URL_EXPENSES, {headers , params});
     return response;
 }
 

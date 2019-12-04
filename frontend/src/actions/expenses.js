@@ -1,5 +1,8 @@
 import * as api from '../api'
 
+export const EXPENSES_PER_PAGE = 10;
+
+
 export const addExpense = (title, amount, date_spent) => {
   return (dispatch, getState) => {
     dispatch({type: "ADD_EXPENSE_LOADING"});
@@ -57,7 +60,6 @@ export const deleteExpense = id => {
     const key = getState().auth.key;
     return api.deleteExpense(key, id)
       .then(response => {   // response.status === 204 ! (or 200)
-//        console.log('Answer: ', response);
         dispatch({
           type: 'DELETE_EXPENSE_SUCCESS',
           removedItem: id,
@@ -73,22 +75,28 @@ export const deleteExpense = id => {
   }
 }
 
-export const fetchExpenses = () => {
+export const fetchExpenses = ( page = 0, params ) => {
   return async (dispatch, getState) => {
+    dispatch({
+      type: 'FETCH_EXPENSES_LOADING',
+    });
     const key = getState().auth.key;
-    await api.getExpenses(key)
+    params = { offset: page * EXPENSES_PER_PAGE, limit: EXPENSES_PER_PAGE }
+    await api.getExpenses(key, params)
       .then(response => {
-        const expenseList = response.data;
+//        console.log('response', response);
+        const { count, results } = response.data;
+        console.log('count: ', count)
+        console.log('results: ', results)
         dispatch({
           type: 'FETCH_EXPENSES',
-          expenseList: expenseList,
+          expenseList: results,
+          expenseCount: count,
         });
       })
       .catch(error => {
         let message = error.message;
-        if (error.response.status === 403) {
-            message = error.response.data.detail;
-        }
+        console.log('error', error);
         dispatch({
           type: 'FETCH_EXPENSES_FAILED',
           data: {data: message},
@@ -96,4 +104,3 @@ export const fetchExpenses = () => {
       })
   }
 }
-
