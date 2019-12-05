@@ -42,12 +42,12 @@ INSERT INTO `users_customuser_groups` (`customuser_id`, `group_id`) SELECT id,  
 + users/ - list
 + registration
 + cost list - fix date format
-- pagination
++ pagination
 + cost list - add filters by text, dates from-to, time from-to
 - User setting ??? - number of money spent per day
 - User groups and permissions
 
-- edit expenses
++ edit expenses
 + delete expenses
 - add expenses
 - add filter
@@ -63,8 +63,8 @@ todo first:
 - expense validation
 - expense edit
 
-- pagination - backend
-- pagination - frontend
++ pagination - backend
++ pagination - frontend
 - user filters - frontend
 - user settings (amout for a day)
 - tests

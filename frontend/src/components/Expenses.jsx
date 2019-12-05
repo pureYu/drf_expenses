@@ -4,11 +4,10 @@ import Modal from "./Modal";
 import FormExpense from "./FormExpense";
 import AuthUser from "./AuthUser";
 import Pagination from "./Pagination/Pagination";
-
 import {expenses} from '../actions'
-// import {EXPENSES_PER_PAGE} from '../actions/expenses'
 
 const EXPENSES_PER_PAGE = 10;
+
 
 class Expenses extends Component {
 
@@ -45,10 +44,8 @@ class Expenses extends Component {
   };
   handleSubmit = item => {
     if (!item.id) {
-      console.log('add');
       this.props.addExpense(item);
     } else {
-      console.log('edit');
       this.props.updateExpense(item.id, item);
     }
     this.toggle();
@@ -169,9 +166,11 @@ class Expenses extends Component {
                 {this.renderItems()}
               </ul>
 
+              <div className="my-5 tab-list">
               {pageCount > 1 && (
                 <Pagination pageCount={pageCount} onChangePage={this.onChangePage} />
               )}
+              </div>
 
             </div>
           </div>

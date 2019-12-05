@@ -111,7 +111,7 @@ export default class FormExpense extends Component {
               />
             </FormGroup>
           </Form>
-          <div class="modal-footer">
+          <div className="modal-footer">
             <Button color="success" onClick={() => onSave(this.state.activeItem)}>
               Save
             </Button>

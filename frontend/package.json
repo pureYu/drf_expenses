@@ -43,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "css-loader": "^3.2.1",
     "webpack-bundle-tracker": "^0.4.3"
   }
 }

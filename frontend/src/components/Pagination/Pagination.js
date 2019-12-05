@@ -26,9 +26,9 @@ export default class Pagination extends Component {
           nextLabel={<FiChevronRight />}
           breakLabel={<FiMoreHorizontal />}
           containerClassName={`flex items-center list pa0 `}
-          pageClassName={`flex items-center pointer ${styles.pageButton}`}
-          breakClassName={`flex items-center ${styles.break}`}
-          activeClassName={`${styles.active}`}
+          pageClassName={`flex items-center pointer pageButton`}
+          breakClassName={`flex items-center break `}
+          activeClassName={`active `}
           activeLinkClassName="gray1"
           disabledClassName="dn"
           pageLinkClassName="outline-0"
