@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Modal from "./Modal";
+import FilterExpenses from "./FilterExpenses";
 import FormExpense from "./FormExpense";
 import AuthUser from "./AuthUser";
 import Pagination from "./Pagination/Pagination";
@@ -14,7 +15,6 @@ class Expenses extends Component {
   async componentDidMount() {
 //     this.props.fetchExpenses();       // AtlusBlue: PermissionsTab.js
     const { fetchExpenses } = this.props;
-//     const { id } = this.props;
     fetchExpenses( { limit: EXPENSES_PER_PAGE , offset: 0 });
   }
 
@@ -68,6 +68,15 @@ class Expenses extends Component {
     }
     return this.setState({ viewCompleted: false });
   };
+  filterResults = (value) => {
+    const { fetchExpenses } = this.props;
+    console.log('in filterResults: ', value);
+    let params = { limit: EXPENSES_PER_PAGE , offset: 0 }
+    if (value) {
+      params['title'] = value
+    }
+    fetchExpenses( params );
+  };
   onChangePage = page => {
     const { fetchExpenses } = this.props;
     this.setState({ activePage: page.selected });
@@ -75,30 +84,20 @@ class Expenses extends Component {
     fetchExpenses({ limit: EXPENSES_PER_PAGE, offset: page.selected * EXPENSES_PER_PAGE });
   };
 
-  renderTabList = () => {
+  renderFilters = () => {
     return (
       <div className="my-5 tab-list">
-        <span
-          onClick={() => this.displayCompleted(true)}
-          className={this.state.viewCompleted ? "active" : ""}
-        >
-          complete
-        </span>
-        <span
-          onClick={() => this.displayCompleted(false)}
-          className={this.state.viewCompleted ? "" : "active"}
-        >
-          Incomplete
-        </span>
+
+        <FilterExpenses
+          onChange={this.filterResults}
+        />
+
       </div>
     );
   };
 
   renderItems = () => {
     const { viewCompleted } = this.state;
-//    const newItems = this.state.expenseList.filter(
-//      item => item.completed === viewCompleted
-//    );
     const newItems = this.props.expenseList;
     return newItems.map(item => (
       <li
@@ -151,7 +150,7 @@ class Expenses extends Component {
                   </div>
                   <AuthUser />
               </div>
-              {this.renderTabList()}
+              {this.renderFilters()}
 
               {this.props.errors.length > 0 && (
                 <ul>
@@ -193,8 +192,8 @@ class Expenses extends Component {
 }
 
 const LoadingExpenses = () => (
-  <div className="absolute top-0 left-0 w-100 h-100 flex justify-center items-center gray-5 b f2 blur-bg">
-    Loading your expenses...
+  <div id="loading" className="absolute top-0 left-0 w-100 h-100 flex justify-center items-center gray-5 b f2 blur-bg">
+    <img src="/loading.gif" />
   </div>
 );
 
