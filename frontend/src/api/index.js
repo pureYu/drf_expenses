@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const BASE_API_URL = 'http://127.0.0.1:8000/api/';
 const BASE_API_URL_EXPENSES = `${BASE_API_URL}expenses/`;
+const BASE_API_URL_EXPENSES_SPENTSUM = `${BASE_API_URL}expenses/spent-sum/`;
 const BASE_API_URL_USERS = `${BASE_API_URL}users/`;
 const BASE_API_URL_AUTH_REG = `${BASE_API_URL}rest-auth/registration/`;
 const BASE_API_URL_AUTH_LOGIN = `${BASE_API_URL}rest-auth/login/`;
@@ -69,6 +70,12 @@ const deleteExpense = (key, item_id) => {
     return response;
 }
 
+const getSpentSum = (key, date) => {
+    const headers = buildHeaders(key);
+    const response = axios.get(`${BASE_API_URL_EXPENSES_SPENTSUM}`, {headers });
+    return response;
+}
+
 //  Users - CRUD
 const getUsers = async (key) => {
     const headers = buildHeaders(key);
@@ -95,5 +102,5 @@ const deleteUser = (key, item_id) => {
 }
 
 export {postLogin, postLogout, postRegister, getAuthUserData
-      , getExpenses, postExpense, putExpense, deleteExpense
+      , getExpenses, postExpense, putExpense, deleteExpense, getSpentSum
       , getUsers, postUser, putUser, deleteUser};

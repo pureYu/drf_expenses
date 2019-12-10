@@ -49,3 +49,18 @@ body {
   width: 35px;
   height: 35px;
 }
+.clear {
+  float: none;
+}
+.clear-both {
+  clear: both;
+}
+
+.limitExceed {
+  font-weight: bold;
+  color: red;
+}
+.limitNotExceed {
+  font-weight: bold;
+  color: green;
+}

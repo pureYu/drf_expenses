@@ -50,9 +50,6 @@ export const updateExpense = (id, title, amount, date_spent) => {
         });
       })
   }
-
-
-
 }
 
 export const deleteExpense = id => {
@@ -96,6 +93,26 @@ export const fetchExpenses = ( params = { offset: 0, limit: 10 } ) => {
         dispatch({
           type: 'FETCH_EXPENSES_FAILED',
           data: {data: message},
+        });
+      })
+  }
+}
+
+export const checkSpentSum = date => {
+  return (dispatch, getState) => {
+    const key = getState().auth.key;
+    return api.getSpentSum(key, date)
+      .then(response => {   // response.status === 204 ! (or 200)
+        dispatch({
+          type: 'GET_SPENT_SUM_SUCCESS',
+          spentSum: response.data.sum_total,
+        });
+      })
+      .catch(error => {
+        console.log('EEEEError: ', error);
+        dispatch({
+          type: 'GET_SPENT_SUM_FAILED',
+          data: {data: error.message},
         });
       })
   }

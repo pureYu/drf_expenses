@@ -34,10 +34,14 @@ export default function expenses(state=initialState, action) {
     case 'FETCH_EXPENSES':
       return  {...state, expenseList: action.expenseList, total: action.expenseCount, loading: false};
 
+    case 'GET_SPENT_SUM_SUCCESS':
+      return  {...state, spentSum: action.spentSum};
+
     case 'ADD_EXPENSE_FAILED':
     case 'UPDATE_EXPENSE_FAILED':
     case 'DELETE_EXPENSE_FAILED':
     case 'FETCH_EXPENSES_FAILED':
+    case 'GET_SPENT_SUM_FAILED':
       return  {...state, errors: action.data, loading: false};
 
     case 'FETCH_EXPENSES_LOADING':

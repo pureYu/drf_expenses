@@ -1,13 +1,21 @@
 from rest_framework.generics import get_object_or_404
 from rest_framework.generics import ListCreateAPIView
-from rest_framework.generics import RetrieveUpdateDestroyAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView, RetrieveAPIView
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 from rest_framework.permissions import IsAuthenticated
+from django.core.exceptions import ValidationError
 from django.conf import settings
+from django.db.models import Sum
+import datetime
+import pytz
+from django.utils.timezone import make_aware
+
 User = settings.AUTH_USER_MODEL
 
 from .models import Expense
-from .serializers import ExpenseSerializer
+from .serializers import ExpenseSerializer, SpentExpenseSumSerializer
 from users.models import CustomUser
 from users.permissions import *
 
@@ -53,3 +61,24 @@ class SingleExpenseView(RetrieveUpdateDestroyAPIView):
     permission_groups = permission_groups
     queryset = Expense.objects.all()
     serializer_class = ExpenseSerializer
+
+
+class SpentExpenseSumView(RetrieveAPIView):
+    permission_classes = [IsAuthenticated, HasGroupPermission]
+    permission_groups = permission_groups
+    http_method_names = ['get']
+
+    def get(self, request):
+        date_spent = self.request.query_params.get('date_spent', None)
+
+        serializer = SpentExpenseSumSerializer(data=request.query_params)
+        serializer.is_valid(raise_exception=True)
+
+        if date_spent is None:
+            date_spent =  datetime.date.today()
+
+        sum_value = Expense.objects.filter(author=request.user, date_spent__date=date_spent) \
+                                    .aggregate(Sum('amount')).get('amount__sum')
+        content = {'date': date_spent, 'sum_total': sum_value}
+        return Response(content)
+

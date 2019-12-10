@@ -12,3 +12,7 @@ class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Expense
         fields = ('id', 'title', 'amount', 'date_spent', 'author_id', 'author')
+
+class SpentExpenseSumSerializer(serializers.Serializer):
+    date_spent = serializers.DateField(required=False)
+

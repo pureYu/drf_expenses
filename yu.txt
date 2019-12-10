@@ -49,8 +49,8 @@ INSERT INTO `users_customuser_groups` (`customuser_id`, `group_id`) SELECT id,  
 
 + edit expenses
 + delete expenses
-- add expenses
-- add filter
++ add expenses
++ add filter
 - add custom user setting
 - add permissions/filter by exp.author
 - add users browser
@@ -65,7 +65,8 @@ todo first:
 
 + pagination - backend
 + pagination - frontend
-- user filters - frontend
-- user settings (amout for a day)
++ user filters - by title - frontend
++ user filters - by date - frontend
+- user settings (amount for a day)
 - tests
 

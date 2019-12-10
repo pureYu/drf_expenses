@@ -30,6 +30,7 @@ export default function auth(state=initialState, action) {
     case 'LOGOUT_SUCCESSFUL':
     case 'LOGOUT_FAILED':
       localStorage.removeItem("key");
+      localStorage.removeItem("limitSum");
       return {...state, errors: action.data, key: null, user: null,
         isAuthenticated: false, isLoading: false};
 

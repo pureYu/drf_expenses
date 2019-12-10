@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Modal from "./Modal";
 import FilterExpenses from "./FilterExpenses";
+import SettingsExpenses from "./SettingsExpenses";
 import FormExpense from "./FormExpense";
 import AuthUser from "./AuthUser";
 import Pagination from "./Pagination/Pagination";
@@ -13,7 +14,6 @@ const EXPENSES_PER_PAGE = 10;
 class Expenses extends Component {
 
   async componentDidMount() {
-//     this.props.fetchExpenses();       // AtlusBlue: PermissionsTab.js
     const { fetchExpenses } = this.props;
     fetchExpenses( { limit: EXPENSES_PER_PAGE , offset: 0 });
   }
@@ -22,7 +22,6 @@ class Expenses extends Component {
     super(props);
     this.state = {
       modal: false,
-      viewCompleted: false,
       activeItem: {
         id: "",
         title: "",
@@ -36,6 +35,7 @@ class Expenses extends Component {
       removedItem: "",
       expenseAdded: "",
       expenseUpdated: "",
+      limitSum: "",
     };
   }
 
@@ -53,7 +53,6 @@ class Expenses extends Component {
   };
   handleDelete = item => {
     this.props.deleteExpense(item.id);
-//     console.log(this.props.errors);
   };
   createItem = () => {
     const item = { title: "", amount: "", date_spent: ""};
@@ -62,42 +61,42 @@ class Expenses extends Component {
   editItem = item => {
     this.setState({ activeItem: item, modal: !this.state.modal });
   };
-  displayCompleted = status => {
-    if (status) {
-      return this.setState({ viewCompleted: true });
-    }
-    return this.setState({ viewCompleted: false });
-  };
-  filterResults = (value) => {
+  filterResults = (title, date_from, date_till) => {
     const { fetchExpenses } = this.props;
-    console.log('in filterResults: ', value);
     let params = { limit: EXPENSES_PER_PAGE , offset: 0 }
-    if (value) {
-      params['title'] = value
+    if (title) {                              //        <<<<< TODO ------------- review
+      params['title'] = title
+    }
+    if (date_from) {
+      params['min_date'] = date_from
+    }
+    if (date_till) {
+      params['max_date'] = date_till
     }
     fetchExpenses( params );
   };
+
   onChangePage = page => {
     const { fetchExpenses } = this.props;
     this.setState({ activePage: page.selected });
-    console.log('page selected>>>>>> ', page);
     fetchExpenses({ limit: EXPENSES_PER_PAGE, offset: page.selected * EXPENSES_PER_PAGE });
   };
 
   renderFilters = () => {
     return (
       <div className="my-5 tab-list">
-
         <FilterExpenses
           onChange={this.filterResults}
         />
-
+        <div className="mt-2">
+          <SettingsExpenses
+          />
+        </div>
       </div>
     );
   };
 
   renderItems = () => {
-    const { viewCompleted } = this.state;
     const newItems = this.props.expenseList;
     return newItems.map(item => (
       <li
@@ -105,9 +104,7 @@ class Expenses extends Component {
         className="list-group-item d-flex justify-content-between align-items-center"
       >
         <span
-          className={`expense-title mr-2 ${
-            this.state.viewCompleted ? "completed-expense" : ""
-          }`}
+          className={`expense-title mr-2`}
           title={item.title}
         >
           <span className={`expense-id`}>{item.id}</span>
