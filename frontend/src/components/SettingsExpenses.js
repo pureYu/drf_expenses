@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
-import {expenses} from '../actions'
 
 
 class SettingsExpenses extends Component {
@@ -20,7 +19,7 @@ class SettingsExpenses extends Component {
     }
   };
 
-  componentDidUpdate(prevProps, prevState){
+  componentDidUpdate(prevProps, prevState) {
 
     const spentSum = Number(this.props.spentSum);
     const limitSum = Number(this.state.limitSum);
@@ -71,26 +70,4 @@ class SettingsExpenses extends Component {
   }
 }
 
-const mapStateToProps = state => {
-
-  let errors = [];
-  if (state.expenses.errors) {
-    errors = Object.keys(state.expenses.errors).map(field => {
-      return {field, message: state.expenses.errors[field]};
-    });
-  }
-  return {
-    errors,
-    spentSum: state.expenses.spentSum,
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    checkSpentSum: (date) => {
-      dispatch(expenses.checkSpentSum(date));                  // <<<<<<< TODO: refactoring???
-    },
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsExpenses);
+export default SettingsExpenses;

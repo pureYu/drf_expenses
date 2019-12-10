@@ -50,9 +50,11 @@ class Expenses extends Component {
     }
     this.toggle();
     console.log(this.props.errors);
+    this.props.checkSpentSum();      //        <<<<< TODO ------------- call async
   };
   handleDelete = item => {
     this.props.deleteExpense(item.id);
+    this.props.checkSpentSum();      //        <<<<< TODO ------------- call async
   };
   createItem = () => {
     const item = { title: "", amount: "", date_spent: ""};
@@ -64,7 +66,7 @@ class Expenses extends Component {
   filterResults = (title, date_from, date_till) => {
     const { fetchExpenses } = this.props;
     let params = { limit: EXPENSES_PER_PAGE , offset: 0 }
-    if (title) {                              //        <<<<< TODO ------------- review
+    if (title) {                      //        <<<<< TODO ------------- review
       params['title'] = title
     }
     if (date_from) {
@@ -83,6 +85,7 @@ class Expenses extends Component {
   };
 
   renderFilters = () => {
+    const {checkSpentSum, spentSum} = this.props;
     return (
       <div className="my-5 tab-list">
         <FilterExpenses
@@ -90,6 +93,8 @@ class Expenses extends Component {
         />
         <div className="mt-2">
           <SettingsExpenses
+            checkSpentSum={checkSpentSum}
+            spentSum={spentSum}
           />
         </div>
       </div>
@@ -213,6 +218,7 @@ const mapStateToProps = state => {
     total: state.expenses.total,
     loading: state.expenses.loading,
     activePage: state.expenses.activePage,
+    spentSum: state.expenses.spentSum,
   }
 }
 
@@ -229,6 +235,9 @@ const mapDispatchToProps = dispatch => {
     },
     deleteExpense: (id) => {
       dispatch(expenses.deleteExpense(id));
+    },
+    checkSpentSum: (date) => {
+      dispatch(expenses.checkSpentSum(date));                  // <<<<<<< TODO: refactoring???
     },
   }
 }
