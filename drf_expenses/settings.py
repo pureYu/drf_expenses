@@ -75,9 +75,12 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 100,
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+TEST_SETTINGS = False
 
 SITE_ID = 1
 

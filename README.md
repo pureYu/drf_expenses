@@ -31,3 +31,46 @@ test123 / aYMX5Wk7Cu
 Yuliya / rM7759hw96
 user4 / EkbZxEXyAm
 ```
+
+
+```
+python manage.py test --settings=drf_expenses.settings-test
+```
+
+
+## Usage
+To run app with web UI locally make the next steps:
+```
+cd drf_expenses/
+source venv/bin/activate
+python manage.py runserver
+
+cd frontend
+yarn run
+```
+Go to `localhost:3000`.
+
+## Test users
+```
+admin / admin
+test123 / aYMX5Wk7Cu
+Yuliya / rM7759hw96
+user4 / EkbZxEXyAm
+qwerty / rM7759hw96
+```
+
+## Django admin
+Go to `http://127.0.0.1:8000/admin/`.
+
+Username: `admin`
+Password: `admin`
+
+
+
+
+## Run tests:
+```
+python manage.py test --settings=drf_expenses.settings-test
+
+python manage.py test -v 2 users.tests.tests.UserRegistrationAPIViewTestCase.test_invalid_password 
+```

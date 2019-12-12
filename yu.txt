@@ -25,7 +25,7 @@ An application for tracking of user’s expenses
 
 + Filter by text, dates from-to, time from-to.
 
-User setting – Expected number of money spent per day. When displayed, it goes green if the total for current day is less than expected number per day, otherwise goes red.
++ User setting – Expected number of money spent per day. When displayed, it goes green if the total for current day is less than expected number per day, otherwise goes red.
 
 Groups:
 + regular_user (can CRUD their own records)
@@ -44,14 +44,14 @@ INSERT INTO `users_customuser_groups` (`customuser_id`, `group_id`) SELECT id,  
 + cost list - fix date format
 + pagination
 + cost list - add filters by text, dates from-to, time from-to
-- User setting ??? - number of money spent per day
++ User setting ??? - number of money spent per day
 - User groups and permissions
 
 + edit expenses
 + delete expenses
 + add expenses
 + add filter
-- add custom user setting
++ add custom user setting
 - add permissions/filter by exp.author
 - add users browser
 - add users from fronend
@@ -61,12 +61,12 @@ INSERT INTO `users_customuser_groups` (`customuser_id`, `group_id`) SELECT id,  
 
 todo first:
 - expense validation
-- expense edit
++ expense edit
 
 + pagination - backend
 + pagination - frontend
 + user filters - by title - frontend
 + user filters - by date - frontend
-- user settings (amount for a day)
++ user settings (amount for a day)
 - tests
 

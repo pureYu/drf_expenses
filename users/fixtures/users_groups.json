@@ -1,0 +1,73 @@
+[
+  {
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+      "name": "admin",
+      "permissions": [
+      ]
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+      "name": "user_manager",
+      "permissions": [
+      ]
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 3,
+    "fields": {
+      "name": "regular_user",
+      "permissions": [
+      ]
+    }
+  },
+  {
+    "model": "users.customuser",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$CW3HVkjhu2iR$Vzvp22py06IzERXjG6NmwnauqvnQGfPDv+/SjwA5G/s=",
+      "last_login": "2019-12-11T10:18:39.917Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "admin@admin.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2019-10-03T09:09:00Z",
+      "name": "superuser",
+      "surname": "superuser can do everything",
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.customuser",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$5Ahh21EovJxg$ttd6x/Y2ul4y+HvRMoSRgCL1V5MPrlvgEv3DwnR/NsI=",
+      "last_login": "2019-12-11T10:20:06Z",
+      "is_superuser": false,
+      "username": "Yuliya",
+      "first_name": "",
+      "last_name": "",
+      "email": "y.admin@admin.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-12-11T10:20:06Z",
+      "name": "Yuliya",
+      "surname": "UserManager",
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  }
+]
