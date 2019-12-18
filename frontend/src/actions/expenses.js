@@ -15,6 +15,7 @@ export const addExpense = (title, amount, date_spent) => {
           type: 'ADD_EXPENSE_SUCCESS',
           expenseAdded: response.data,
         });
+        dispatch(checkSpentSum());
       })
       .catch(error => {
         dispatch({
@@ -42,6 +43,7 @@ export const updateExpense = (id, title, amount, date_spent) => {
           type: 'UPDATE_EXPENSE_SUCCESS',
           expenseUpdated: response.data,
         });
+        dispatch(checkSpentSum());
       })
       .catch(error => {
         dispatch({
@@ -61,6 +63,8 @@ export const deleteExpense = id => {
           type: 'DELETE_EXPENSE_SUCCESS',
           removedItem: id,
         });
+//        checkSpentSum(dispatch, getState)
+        dispatch(checkSpentSum());
       })
       .catch(error => {
         console.log('EEEEError: ', error);

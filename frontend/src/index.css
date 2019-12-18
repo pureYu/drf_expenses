@@ -64,3 +64,6 @@ body {
   font-weight: bold;
   color: green;
 }
+.formErrors {
+  color: #ff0000;
+}

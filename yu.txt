@@ -68,5 +68,41 @@ todo first:
 + user filters - by title - frontend
 + user filters - by date - frontend
 + user settings (amount for a day)
-- tests
+- tests (e.g. - https://github.com/erdem/DRF-TDD-example/blob/master/todoapp/todos/tests.py)
+
++ User add: add user with existing username
+- User edit: do not require password
+
+#####################################################################################
+shallow:  True
+username:  1711_johndoe
+hasattr(self, 'initial_data'):  True
+self.initial_data:  <QueryDict: {'email': ['1711_johndoe@mail.com'], 'surname': ['1711_johndoe_surname'], 'username': ['1711_johndoe'], 'password2': ['self.initial_data'], 'name': ['1711_johndoe_name'], 'password1': ['self.initial_data']}>
+YUUUUU:  False
+
+#####################################################################################
+shallow:  True
+username:  1711_johndoe
+hasattr(self, 'initial_data'):  True
+self.initial_data:  <QueryDict: {'surname': ['1711_johndoe'], 'password2': ['1711_johndoe'], 'name': ['1711_johndoe'], 'email': ['1711_johndoe@mail.com'], 'username': ['1711_johndoe'], 'csrfmiddlewaretoken': ['pxhZPOzmzL9g1QDTsgKO7JQjH0F4BWthU2AsYnhC0TC5A8zV6O8XmqKPo7cpHQEd'], 'password1': ['1711_johndoe']}>
+YUUUUU:  False
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+validated_data_2:  {'surname': '1711_johndoe', 'name': '1711_johndoe', 'email': '1711_johndoe@mail.com', 'username': '1711_johndoe', 'password': '1711_johndoe'}
+
+
+pbkdf2_sha256$150000$3bbQrUHwI7o9$C+eTpyM3on3fN8vBH/zV6haEyxJD1rqI7p3dEL35dZw=
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

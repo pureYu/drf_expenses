@@ -23,6 +23,7 @@ class Users extends Component {
         username: "",
         email: "",
         password: "",
+        password2: "",
         name: "",
         surname: "",
         groups: "",
@@ -45,15 +46,19 @@ class Users extends Component {
       console.log('edit');
       this.props.updateUser(item.id, item);
     }
-    this.toggle();
-    console.log(this.props.errors);
+    console.log('In Users component, props.errors:', this.props.errors);
+    if (this.props.errors) {
+
+    } else {
+      this.toggle();
+    }
   };
   handleDelete = item => {
     this.props.deleteUser(item.id);
 //     console.log(this.props.errors);
   };
   createItem = () => {
-    const item = { username: "", email: "", password: "", name: "", surname: "", groups: ""};
+    const item = { username: "", email: "", password: "", password2: "", name: "", surname: "", groups: ""};
     this.setState({ activeItem: item, modal: !this.state.modal });
   };
   editItem = item => {
@@ -113,7 +118,7 @@ class Users extends Component {
               <div className="my-5 tab-list">
               </div>
 
-              {this.props.errors.length > 0 && (
+              {this.props.errors.length > 0 && !this.state.modal && (
                 <ul>
                   {this.props.errors.map(error => (
                     <li key={error.field}>{error.message}</li>
@@ -145,13 +150,22 @@ class Users extends Component {
 }
 
 const mapStateToProps = state => {
-//   console.log('in mapDispatchToProps')
-//   console.log(state.users);
+   console.log('in User mapDispatchToProps')
+   console.log('state.users.errors:', state.users.errors);
 
   let errors = [];
   if (state.users.errors) {
-    errors = Object.keys(state.users.errors).map(field => {
-      return {field, message: state.users.errors[field]};
+//     errors = Object.keys(state.users.errors).map(field => {
+//       return {field, message: state.users.errors[field]};
+//     });
+    Object.keys(state.users.errors).map((field, value) => {
+      if (typeof value === "object") {
+        Object.keys(value).map((f, v) => {
+          errors.push({f, message: v});
+        })
+      } else {
+        errors.push({field, message: value});
+      }
     });
   }
   return {
@@ -169,10 +183,10 @@ const mapDispatchToProps = dispatch => {
       dispatch(users.fetchUsers());
     },
     addUser: (item) => {
-      dispatch(users.addUser(item.username, item.email, item.password, item.name, item.surname, item.groups));
+      dispatch(users.addUser(item.username, item.email, item.password, item.password2, item.name, item.surname, item.groups));
     },
     updateUser: (id, item) => {
-      dispatch(users.updateUser(id, item.username, item.email, item.password, item.name, item.surname, item.groups));
+      dispatch(users.updateUser(id, item.username, item.email, item.password, item.password2, item.name, item.surname, item.groups));
     },
     deleteUser: (id) => {
       dispatch(users.deleteUser(id));

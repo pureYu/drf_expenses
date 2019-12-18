@@ -89,9 +89,9 @@ const postUser = (key, data) => {
     return response;
 }
 
-const putUser = (key, item_id, data) => {
+const patchUser = (key, item_id, data) => {
     const headers = buildHeaders(key);
-    const response = axios.put(`${BASE_API_URL_USERS}${item_id}/`, data, {headers });
+    const response = axios.patch(`${BASE_API_URL_USERS}${item_id}/`, data, {headers });
     return response;
 }
 
@@ -103,4 +103,4 @@ const deleteUser = (key, item_id) => {
 
 export {postLogin, postLogout, postRegister, getAuthUserData
       , getExpenses, postExpense, putExpense, deleteExpense, getSpentSum
-      , getUsers, postUser, putUser, deleteUser};
+      , getUsers, postUser, patchUser, deleteUser};

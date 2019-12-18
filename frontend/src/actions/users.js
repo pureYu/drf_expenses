@@ -1,10 +1,10 @@
 import * as api from '../api'
 
-export const addUser = (username, email, password, name, surname, groups) => {
+export const addUser = (username, email, password, password2, name, surname, groups) => {
   return (dispatch, getState) => {
     dispatch({type: "ADD_USERDATA_LOADING"});
     const key = getState().auth.key;
-    const data = JSON.stringify({username, email, password, name, surname, groups});
+    const data = JSON.stringify({username, email, password1: password, password2, name, surname, groups});
     return api.postUser(key, data)
       .then(response => {
 //        console.log('Answer: ', response);
@@ -22,7 +22,7 @@ export const addUser = (username, email, password, name, surname, groups) => {
   }
 }
 
-export const updateUser = (id, username, email, password, name, surname, groups) => {
+export const updateUser = (id, username, email, password, password2, name, surname, groups) => {
 //  return {
 //    type: 'UPDATE_USERDATA',
 //    id,
@@ -31,19 +31,27 @@ export const updateUser = (id, username, email, password, name, surname, groups)
   return (dispatch, getState) => {
     dispatch({type: "UPDATE_USERDATA_LOADING"});
     const key = getState().auth.key;
-    const data = JSON.stringify({username, email, password, name, surname, groups});
-    return api.putUser(key, id, data)
+    const data = JSON.stringify({username, email, password1: password, password2, name, surname, groups});
+    return api.patchUser(key, id, data)
       .then(response => {   // response.status === 200
-        console.log('Answer for putUser: ', response);
+        console.log('Answer for patchUser: ', response);
         dispatch({
           type: 'UPDATE_USERDATA_SUCCESS',
           userUpdated: response.data,
         });
       })
       .catch(error => {
+        console.log('in update action error: ', error);
+        console.log('in update action error.message: ', error.message);
+        console.log('in update action error.response: ', error.response);
+        let message = error.message;
+        if (error.response.status === 400) {
+          message = error.response.data;
+        }
+        console.log('in update action message: ', message);
         dispatch({
           type: 'UPDATE_USERDATA_FAILED',
-          data: {data: error.message},
+          data: {data: message},
         });
       })
   }
@@ -78,17 +86,19 @@ export const fetchUsers = () => {
     const key = getState().auth.key;
     await api.getUsers(key)
       .then(response => {
-        const userList = response.data;
+        const { count, results } = response.data;
         dispatch({
           type: 'FETCH_USERDATA',
-          userList: userList,
+          userList: results,
+          userCount: count,
         });
       })
       .catch(error => {
         let message = error.message;
-        if (error.response.status === 403) {
-            message = error.response.data.detail;
-        }
+//        console.log(error); userItems.map
+//        if (error.response.status === 403) {
+//            message = error.response.data.detail;
+//        }
         dispatch({
           type: 'FETCH_USERDATA_FAILED',
           data: {data: message},

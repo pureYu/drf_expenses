@@ -70,7 +70,9 @@ Password: `admin`
 
 ## Run tests:
 ```
-python manage.py test --settings=drf_expenses.settings-test
+python manage.py test -v 2 --settings=drf_expenses.settings
 
-python manage.py test -v 2 users.tests.tests.UserRegistrationAPIViewTestCase.test_invalid_password 
+python manage.py test -v 2 users.tests.tests.UserRegistrationAPIViewTestCase.test_invalid_password
+python manage.py test -v 2 expenses.tests.tests.ExpensesListCreateAPIViewTestCase.test_user_expenses_list
+ 
 ```

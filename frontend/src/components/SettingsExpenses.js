@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux';
 
 
 class SettingsExpenses extends Component {
@@ -23,7 +22,7 @@ class SettingsExpenses extends Component {
 
     const spentSum = Number(this.props.spentSum);
     const limitSum = Number(this.state.limitSum);
-    if (this.state.limitSum != prevState.limitSum || this.props.spentSum != prevProps.spentSum) {
+    if (this.state.limitSum !== prevState.limitSum || this.props.spentSum !== prevProps.spentSum) {
       this.setState({ limitExceed: (spentSum >= limitSum) });
     }
   }
@@ -48,7 +47,6 @@ class SettingsExpenses extends Component {
   }
 
   render() {
-    const { limitExceed } = this.state;
     return (
       <div>
         <label htmlFor="limit_sum">Set limit sum for today: </label>

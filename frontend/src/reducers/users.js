@@ -5,6 +5,7 @@ const initialState = {
         username: "",
         email: "",
         password: "",
+        password2: "",
         name: "",
         surname: "",
         groups: "",

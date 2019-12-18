@@ -50,11 +50,11 @@ class Expenses extends Component {
     }
     this.toggle();
     console.log(this.props.errors);
-    this.props.checkSpentSum();      //        <<<<< TODO ------------- call async
+//     this.props.checkSpentSum();      //        <<<<< TODO ------------- call async
   };
   handleDelete = item => {
     this.props.deleteExpense(item.id);
-    this.props.checkSpentSum();      //        <<<<< TODO ------------- call async
+//     this.props.checkSpentSum();      //        <<<<< TODO ------------- call async
   };
   createItem = () => {
     const item = { title: "", amount: "", date_spent: ""};

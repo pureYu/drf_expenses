@@ -1,4 +1,5 @@
 import * as api from '../api'
+import { push } from 'connected-react-router'
 
 const ERR_SERVER_RESPONSE = "Unknown Error Occured. Server response not received.";
 
@@ -84,6 +85,13 @@ export const login = (username, password) => {
       .then(response => {
         if (response.status === 200) {
           dispatch({type: 'LOGIN_SUCCESSFUL', data: response.data });
+          // todo - check if user is manager or not !!!!!!!!!!!!!!!!!!
+//          dispatch(push('/users/'))
+//          dispatch({ loadAuthUser() });
+//          let state = getState()
+//          console.log('%%%%%%%%%%%%%%%%%%%%% ', state);
+
+
         } else {
           dispatch({type: "LOGIN_FAILED", data: response.data});
         }

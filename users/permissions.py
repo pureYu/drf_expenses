@@ -1,23 +1,3 @@
-# from rest_framework import permissions
-# # https://stackoverflow.com/questions/45280248/django-rest-framework-group-based-permissions-for-individual-views
-# class IsRegularUser(permissions.BasePermission):
-#     def has_permission(self, request, view):
-#         if request.user and request.user.groups.filter(name='regular_user'):
-#             return True
-#         return False
-#
-# class IsUserManager(permissions.BasePermission):
-#     def has_permission(self, request, view):
-#         if request.user and request.user.groups.filter(name='user_manager'):
-#             return True
-#         return False
-#
-# class IsAdmin(permissions.BasePermission):
-#     def has_permission(self, request, view):
-#         if (request.user and request.user.groups.filter(name='admin')) or request.user.:
-#             return True
-#         return False
-
 from django.contrib.auth.models import User, Group
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import permissions
@@ -92,3 +72,23 @@ class IsSameUserAllowEditionOrReadOnly(permissions.BasePermission):
 
         return request.user.is_staff or (request.method == 'PUT' and
                                          obj.id == request.user.id)
+
+
+class IsRegularUser(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user and request.user.groups.filter(name='regular_user'):
+            return True
+        return False
+
+class IsUserManager(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user and request.user.groups.filter(name='user_manager'):
+            return True
+        return False
+
+class IsAdmin(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if (request.user and request.user.groups.filter(name='admin')) or request.user.id == 1:
+            return True
+        return False
+
